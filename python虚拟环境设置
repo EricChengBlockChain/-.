@@ -35,3 +35,24 @@ python3 -m site --user-site
 查看pip安装的库有哪些
 pip list --format=columns
 pip3 list --format=columns
+
+
+################
+要在Python虚拟环境中安装新的Python版本，您需要执行以下步骤：
+
+确定您要安装的Python版本：您可以在Python官方网站（https://www.python.org/downloads/）上下载您想要的Python版本的安装包。请确保下载与您虚拟环境中的Python版本不同的版本。
+
+激活您的虚拟环境：在终端或命令提示符中，使用以下命令激活您的虚拟环境：
+
+在 Windows 上：C:\path\to\venv\Scripts\activate.bat
+在 macOS 和 Linux 上：source /path/to/venv/bin/activate
+安装新的Python版本：下载并运行安装程序，将新的Python版本安装到虚拟环境的根目录中。
+
+验证安装：使用以下命令在虚拟环境中检查Python版本：
+
+css
+Copy code
+python --version
+如果一切正常，您应该会看到新安装的Python版本的版本号。
+
+现在，您可以在虚拟环境中使用新的Python版本，并且它不会影响到您系统上的其他Python环境。同时，您可以在虚拟环境中安装其他库或工具，以便在项目中使用它们。
