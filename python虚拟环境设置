@@ -4,7 +4,9 @@
 
 在合适的位置创建一个新的虚拟环境。例如，在项目文件夹中创建一个名为“venv”的虚拟环境：virtualenv venv
 
-激活虚拟环境。在 Windows 操作系统中，您可以在命令行中输入venv\Scripts\activate来激活虚拟环境。在类 Unix 操作系统（例如 Linux 和 macOS）中，您可以输入source venv/bin/activate来激活虚拟环境。您可以在命令行提示符中看到虚拟环境的名称（例如“(venv)”）。
+激活虚拟环境。在 Windows 操作系统中，您可以在命令行中输入venv\Scripts\activate来激活虚拟环境。
+在类 Unix 操作系统（例如 Linux 和 macOS）中，您可以输入source venv/bin/activate来激活虚拟环境。
+您可以在命令行提示符中看到虚拟环境的名称（例如“(venv)”）。
 
 在虚拟环境中安装所需的 Python 包。使用 pip 包管理器安装所需的包，例如：pip install numpy。安装的包将被存储在虚拟环境中，不会影响全局 Python 环境。
 
