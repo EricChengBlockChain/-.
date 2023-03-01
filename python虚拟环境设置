@@ -27,3 +27,11 @@
 可以使用pip list命令来查看全局 Python 环境中安装的所有包和版本。这可以帮助您确保在使用虚拟环境时不会意外地使用全局环境中的包。
 
 使用虚拟环境是 Python 中管理依赖项的常用方式之一，可以帮助您在不同项目中隔离不同的依赖库，避免不同项目之间的冲突。
+###############
+
+查看python版本以及位置
+python -m site --user-site
+python3 -m site --user-site
+查看pip安装的库有哪些
+pip list --format=columns
+pip3 list --format=columns
