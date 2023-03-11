@@ -1,0 +1,156 @@
+什么是时间复杂度和空间复杂度？
+时间复杂度是指算法执行所需的时间量，通常使用大O符号表示。空间复杂度是指算法执行所需的内存量，通常也使用大O符号表示。这些复杂度用于衡量算法的效率和资源利用率。
+时间复杂度是指算法在最坏情况下执行的时间量，通常使用大O符号表示。它告诉你算法的执行速度随输入规模的增长而变化的程度。例如，一个时间复杂度为O(n)的算法意味着它的运行时间随着输入大小n的增加而线性增长。
+了解算法的时间和空间复杂度对于评估算法的效率非常重要。分析一个算法的时间和空间复杂度，并可以选择合适的算法来解决问题。
+
+
+
+什么是动态规划？
+动态规划是一种通过将问题分解成子问题来解决复杂问题的算法。它通常用于需要找到最优解的问题，例如最长公共子序列、最小编辑距离等。
+在动态规划中，问题被划分为多个子问题，每个子问题只需要被求解一次，然后结果被存储在一个表中以供以后使用。通过解决所有子问题，最终可以得到原问题的最优解。
+def rob(nums):
+    if not nums:
+        return 0
+    if len(nums) == 1:
+        return nums[0]
+    dp = [0] * len(nums)
+    dp[0] = nums[0]
+    dp[1] = max(nums[0], nums[1])
+    for i in range(2, len(nums)):
+        dp[i] = max(dp[i-2]+nums[i], dp[i-1])
+    return dp[-1]
+代码解释：
+
+如果输入的数组为空，则返回 0。
+如果输入的数组只有一个元素，则返回该元素的值。
+定义一个长度为 n 的数组 dp，初始化为 0。
+将 dp[0] 设置为 nums[0]，dp[1] 设置为 max(nums[0], nums[1])，即前两个房子中的最大值。
+对于每个 i（2 ≤ i ≤ n-1），通过比较 dp[i-2]+nums[i] 和 dp[i-1] 的大小，来更新 dp[i]。
+最后返回 dp[-1]，即最后一个房子的最大价值。
+该算法的时间复杂度为 O(n)
+
+
+
+什么是回溯算法？
+回溯算法是一种通过递归地枚举所有可能的解来解决问题的算法。在搜索到某个解时，它会进行回溯并继续搜索其他可能的解。回溯算法通常用于解决组合、排列、子集等问题。
+def backtrack(subsets, temp_list, nums, remain, start):
+    # 如果满足要求，将当前子集加入到结果列表中
+    if remain == 0:
+        subsets.append(list(temp_list))
+        return
+    # 如果当前元素已经超过了数组的长度或者剩余的和已经小于当前元素，则回溯到上一步
+    if start == len(nums) or remain < nums[start]:
+        return
+    # 递归搜索子集，每次将当前元素加入到临时列表中，并继续搜索剩余的元素
+    for i in range(start, len(nums)):
+        temp_list.append(nums[i])
+        backtrack(subsets, temp_list, nums, remain - nums[i], i)
+        temp_list.pop()
+        
+def find_subsets(nums, target):
+    # 将结果存储到一个列表中
+    subsets = []
+    # 对数组进行排序，以便更好地处理
+    nums.sort()
+    # 调用回溯函数搜索子集
+    backtrack(subsets, [], nums, target, 0)
+    return subsets
+
+
+
+
+
+
+什么是分治算法？
+分治算法是一种将问题分成更小的子问题来解决问题的算法。它通常用于需要进行大量计算的问题，例如排序、求中位数等。
+分治算法的基本步骤包括：
+分解原问题为若干个规模较小的子问题。
+解决子问题，如果子问题的规模足够小，可以直接求解。
+合并子问题的解，得到原问题的解。
+归并排序的分治过程如下：
+将待排序数列平均划分为两个子序列。
+对两个子序列分别进行归并排序，直到子序列长度为 1。
+将两个有序子序列合并成一个有序序列。
+def merge_sort(arr):
+    """
+    使用分治算法实现归并排序
+    :param arr: 待排序的数组
+    :return: 排序后的数组
+    """
+    # 如果数组长度为1，则已经排序完成，直接返回
+    if len(arr) == 1:
+        return arr
+    
+    # 将数组分成两个子数组
+    mid = len(arr) // 2
+    left = arr[:mid]
+    right = arr[mid:]
+    
+    # 对子数组进行递归排序
+    left_sorted = merge_sort(left)
+    right_sorted = merge_sort(right)
+    
+    # 合并排序后的子数组
+    sorted_arr = []
+    i = j = 0
+    while i < len(left_sorted) and j < len(right_sorted):
+        if left_sorted[i] < right_sorted[j]:
+            sorted_arr.append(left_sorted[i])
+            i += 1
+        else:
+            sorted_arr.append(right_sorted[j])
+            j += 1
+    
+    # 将剩余的元素加入排序后的数组
+    sorted_arr += left_sorted[i:]
+    sorted_arr += right_sorted[j:]
+    
+    return sorted_arr
+算法的实现过程如下：
+如果数组长度为1，则已经排序完成，直接返回该数组。
+将数组分成两个子数组，分别为左子数组和右子数组。
+对左子数组和右子数组分别进行递归排序，得到排序后的左子数组和右子数组。
+合并排序后的左子数组和右子数组，得到排序后的数组。具体做法是比较左子数组和右子数组的第一个元素，将较小的元素加入排序后的数组中，然后将指向该元素的指针向后移动一位，直到左子数组或右子数组的所有元素都加入排序后的数组中。如果左子数组或右子数组还有剩余的元素，将其加入排序后的数组中。
+返回排序后的数组。
+
+
+
+
+
+
+
+什么是贪心算法？
+贪心算法是一种通过选择每个步骤中最优的解决方案来解决问题的算法。它通常用于需要找到局部最优解的问题，例如背包问题、最小生成树等。
+def greedy_algorithm(items, max_weight):
+    """
+    使用贪心算法求解背包问题
+    :param items: 物品列表，每个物品用元组表示，元组第一个元素表示重量，第二个元素表示价值
+    :param max_weight: 背包的最大承重
+    :return: 背包中物品的最大总价值
+    """
+    # 将物品按单位重量价值从大到小排序
+    items = sorted(items, key=lambda x: x[1]/x[0], reverse=True)
+    
+    # 初始化背包中物品的总重量和总价值
+    total_weight = 0
+    total_value = 0
+    
+    # 依次将重量最小的物品放入背包中，直到背包不能再放置物品或所有物品已放入背包中
+    for weight, value in items:
+        if total_weight + weight <= max_weight:
+            total_weight += weight
+            total_value += value
+        else:
+            remaining_weight = max_weight - total_weight
+            total_weight += remaining_weight
+            total_value += remaining_weight * (value/weight)
+            break
+    
+    return total_value
+该算法用于解决背包问题，即有一定承重能力的背包，需要从一堆物品中选择一些物品放入背包中，使得放入的物品总重量不超过背包承重能力，且放入的物品总价值最大。
+算法的实现过程如下：
+首先将物品按照单位重量的价值从大到小排序，即每个物品的价值除以重量的值越大，则其排名越高。
+初始化背包中物品的总重量和总价值为0。
+依次遍历排序后的物品，将重量最小的物品放入背包中。若放入该物品后背包总重量不超过最大承重，则将该物品的重量和价值加入总重量和总价值中；若放入该物品后背包总重量超过最大承重，则只能将该物品的一部分放入背包中，使得背包恰好装满，然后退出循环。
+返回背包中物品的最大总价值。
+由于该算法每次都选择单位重量价值最大的物品放入背包中，因此可以得到一个较优的解，但并不能保证得到最优解。
